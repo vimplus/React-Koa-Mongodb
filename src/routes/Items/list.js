@@ -1,7 +1,7 @@
 /**
- * @overview	Detail
+ * @overview	List
  * @author		txBoy
- * @created		2017-03-14
+ * @created		2017-03-21
  */
 
 import React, { Component } from 'react';

@@ -47,6 +47,6 @@
         "eject": "react-scripts eject"
     },
     "theme": {
-        "ant-btn-primary": "#1DA57A"
+        "primary-color": "#1DA57A"
     }
 }

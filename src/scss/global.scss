@@ -35,6 +35,9 @@
   line-height: 32px;
   color: #fff;
   text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   background: #333;
   border-radius: 6px;
   margin: 16px;

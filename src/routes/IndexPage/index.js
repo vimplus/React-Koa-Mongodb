@@ -1,3 +1,9 @@
+/**
+ * @overview	IndexPage
+ * @author		txBoy
+ * @created		2017-03-21
+ */
+
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
 
