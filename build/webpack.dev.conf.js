@@ -12,7 +12,7 @@ const webpackBaseConfig  = require('./webpack.base.conf.js');
 
 module.exports = merge(webpackBaseConfig, {
     output: {
-        publicPath: '/', //webpack-dev-server访问的路径
+        publicPath: '//static.cims.yylending.com/', //webpack-dev-server访问的路径
         filename: 'js/[name].[hash:8].js',
         chunkFilename: 'js/[id].chunk.[hash:8].js'
     },

@@ -1,5 +1,34 @@
 # React-Koa-Mongodb技术栈
 
+## 安装依赖
+
+```
+yarn install
+```
+
+## 配置Nginx
+
+```
+server {
+    listen          80;
+    server_name     cims.thinktxt.com;
+
+    location / {
+        proxy_pass  http://127.0.0.1:9002;
+    }
+}
+
+server {
+    listen          80;
+    server_name     static.cims.thinktxt.com;
+
+    location / {
+        proxy_pass  http://127.0.0.1:9000;
+    }
+
+}
+```
+
 ## 开发构建
 
 ```
