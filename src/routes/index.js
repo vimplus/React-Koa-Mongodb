@@ -4,16 +4,16 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, BrowserRouter, Link} from 'react-router-dom';
 import LazyRoute from 'lazy-route';
 
-import IndexPage from './indexPage';
+import IndexPage from './IndexPage';
 
 const childRoutes = [
     {
         path: '/list',
-        component: './items/list'
+        component: './Items/list'
     },
     {
         path: '/detail',
-        component: './items/detail'
+        component: './Items/detail'
     }
 ]
 
@@ -45,10 +45,7 @@ class App extends Component {
   render() {
     return (
         <BrowserRouter>
-            <div>
-                <IndexPage/>
-                { renderRoutes(childRoutes) }
-            </div>
+            <IndexPage routesChildren = {renderRoutes(childRoutes)}/>
         </BrowserRouter>
     );
   }

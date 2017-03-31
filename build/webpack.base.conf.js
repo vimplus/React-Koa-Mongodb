@@ -62,6 +62,7 @@ module.exports = {
         extensions: ['.js', '.jsx', '.scss', '.css'],
         alias: {
             libs: path.resolve('./src/libs'),
+            utils: path.resolve('./src/utils'),
             scss: path.resolve('./src/scss'),
             css: path.resolve('./src/css'),
             img: path.resolve('./src/images'),
