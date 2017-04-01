@@ -22,14 +22,6 @@ const childRoutes = [
 ]
 
 
-// const RouteWithSubRoutes = (route) => (
-//   <Route path={route.path} render={props => (
-//     // pass the sub-routes down to keep nesting
-//     //<LazyRoute {...props} component={route.component} />
-//     <route.component {...props} routes={route.routes}/>
-//   )}/>
-// )
-
 // 定义路由组件
 const RouteWithSubRoutes = (route) => (
   <Route path={route.path} render={ props => (
@@ -58,35 +50,6 @@ class App extends Component {
 
 // <Route exact path='/' component={IndexPage}/>
 // <Route path='/list' render={(props) => <LazyRoute {...props} component={import('./loan/list/component')} />}/>
-
-
-// <Route exact path='/' component={IndexPage}/>
-// <Route path='/list' render={(props) => <LazyRoute {...props} component={import('./loan/list/component')} />}/>
 // <Route path='/detail' render={(props) => <LazyRoute {...props} component={import('./loan/detail/component')} />}/>
 
 export default App;
-
-// [
-//   { component: App,
-//     routes: [
-//       { path: '/',
-//         exact: true,
-//         component: IndexPage
-//       },
-//       { path: '/list',
-//         component: ListPage
-//         },
-//         {
-//             path: '/detail',
-//             component: DetailPage
-//         }
-//     ]
-//   }
-// ]
-
-// {
-//     path: '/',
-//     component: App,
-//     routes: childRoutes,
-//     indexRoute: {component: IndexPage}
-// }

@@ -56,3 +56,5 @@ node server/index.js
 ```
 gulp release
 ```
+
+发布后可在`dist`目录查看所有静态资源
