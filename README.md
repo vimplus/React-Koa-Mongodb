@@ -29,13 +29,26 @@ server {
 }
 ```
 
+## 配置Host
+
+```
+127.0.0.1 cims.thinktxt.com
+127.0.0.1 static.cims.thinktxt.com
+```
+
 ## 开发构建
 
 ```
 gulp server
 ```
 
-启动服务后在浏览器输入`http://localhost:9000`即可预览。
+## 启动Node服务
+
+```
+node server/index.js
+```
+
+启动服务后在浏览器输入`http://cims.thinktxt.com`即可预览。
 
 
 ## 发布生产
