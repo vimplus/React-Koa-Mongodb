@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 class DetailPage extends Component {
     render() {
         return (
-            <div className="detail">详情页</div>
+            <div className="detail">用户姓名: {this.props.match.params.name}</div>
         );
     }
 }

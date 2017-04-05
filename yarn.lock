@@ -4698,9 +4698,9 @@ koa-router@^5.4.1:
     methods "^1.0.1"
     path-to-regexp "^1.1.1"
 
-koa-xtpl@next:
+koa-xtpl@2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/koa-xtpl/-/koa-xtpl-2.0.0.tgz#d69cd19b7aa092dc50658d94d2533a36b6b69a67"
+  resolved "http://registry.npm.taobao.org/koa-xtpl/download/koa-xtpl-2.0.0.tgz#d69cd19b7aa092dc50658d94d2533a36b6b69a67"
   dependencies:
     node-xtemplate "^0.1.5"
 
@@ -5080,7 +5080,7 @@ lodash.uniq@^4.3.0:
 
 "lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.4, lodash@^4.16.5, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+  resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 lodash@~1.0.1:
   version "1.0.2"

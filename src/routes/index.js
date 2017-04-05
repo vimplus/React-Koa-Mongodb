@@ -8,49 +8,62 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, BrowserRouter, Link} from 'react-router-dom';
 import LazyRoute from 'lazy-route';
 
-import IndexPage from './IndexPage';
+//import IndexPage from './IndexPage';
+import LayoutPage from './LayoutPage';
 
-const childRoutes = [
+const routesConfig = [
     {
-        path: '/list',
-        component: './Items/list'
+        path: '/',
+        exact: true,
+        icon: 'home',
+        name: '首页',
+        component: './IndexPage/index'
     },
     {
-        path: '/detail',
-        component: './Items/detail'
+        path: 'user',
+        icon: 'user',
+        name: '用户',
+        childRoutes: [
+            {
+                name: '列表',
+                path: '/user/list',
+                component: './User/list'
+            },
+            {
+                name: '详情',
+                path: '/user/detail/:name',
+                component: './User/detail'
+            }
+        ]
     }
 ]
 
 
 // 定义路由组件
 const RouteWithSubRoutes = (route) => (
-  <Route path={route.path} render={ props => (
+  <Route path={route.path} exact={route.exact} render={ props => (
     <LazyRoute {...props} component={import(route.component + '.js')}/>
   )}/>
 )
 
 // 渲染所有路由
 const renderRoutes = (routes) => {
-    return routes.map((route, i) => (
-        <RouteWithSubRoutes key={i} {...route}/>
-    ))
+    return routes.map((route, i) => {
+        if(route.childRoutes) {
+            return renderRoutes(route.childRoutes)
+        } else {
+            return (<RouteWithSubRoutes key={`${route.path}-${i}`} {...route}/>)
+        }
+    })
 }
 
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            path: this.props
-        }
-    }
     render() {
-        var path = this.state;
-        console.log(path)
         return (
-        <BrowserRouter>
-            <IndexPage routesChildren = {renderRoutes(childRoutes)}/>
-        </BrowserRouter>
+            <BrowserRouter>
+                <LayoutPage routesChildren = {renderRoutes(routesConfig)} menuConfig = {routesConfig}/>
+            </BrowserRouter>
         );
     }
 }

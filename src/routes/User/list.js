@@ -5,21 +5,22 @@
  */
 
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Link} from 'react-router-dom';
 import { Table } from 'antd';
 
 const columns = [{
     title: 'Name',
     dataIndex: 'name',
-    render: text => <a href = "#"> {text} </a>,
+    render: (text, item) => <Link to = {'/user/detail/'+item.name}> {text} </Link>,
 }, {
     title: 'Age',
     dataIndex: 'age',
 }, {
     title: 'Address',
     dataIndex: 'address',
-    render: (text, record) => (
+    render: (text, item) => (
         <span>
-          <a href="#">Action - {record.name}</a>
+          <a href="#">Action - {item.name}</a>
           <span className="ant-divider" />
           <a href="#">Delete</a>
         </span>
