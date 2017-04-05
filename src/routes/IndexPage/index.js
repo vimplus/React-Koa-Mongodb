@@ -14,11 +14,14 @@ const SubMenu = Menu.SubMenu;
 import logo from 'img/logo.svg';
 import 'scss/global.scss';
 
-class IndexPage extends React.Component {
-    state = {
-        collapsed: false,
-        mode: 'inline',
-    };
+class IndexPage extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            collapsed: false,
+            mode: 'inline',
+        };
+    }
     onCollapse = (collapsed) => {
         console.log(collapsed);
         this.setState({
@@ -35,14 +38,21 @@ class IndexPage extends React.Component {
                 onCollapse={this.onCollapse}
                 >
                     <div className="logo">网金贷平台</div>
-                    <Menu theme="dark" mode={this.state.mode} defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']}>
+                    <Menu theme="dark" mode={this.state.mode} defaultOpenKeys={['sub1']} defaultSelectedKeys={['1']}>
+                        <Menu.Item key="1">
+                            <Link to="/">
+                                <span>
+                                    <Icon type="file" />
+                                    <span className="nav-text">首页</span>
+                                </span>
+                            </Link>
+                        </Menu.Item>
                         <SubMenu
                         key="sub1"
                         title={<span><Icon type="user" /><span className="nav-text">User</span></span>}
                         >
-                            <Menu.Item key="1"><Link to="/">首页</Link></Menu.Item>
-                            <Menu.Item key="2"><Link to="/list">List</Link></Menu.Item>
-                            <Menu.Item key="3"><Link to="/detail">Detail</Link></Menu.Item>
+                            <Menu.Item key="list"><Link to="/list">List</Link></Menu.Item>
+                            <Menu.Item key="detail"><Link to="/detail">Detail</Link></Menu.Item>
                         </SubMenu>
                         <SubMenu
                         key="sub2"
@@ -51,12 +61,6 @@ class IndexPage extends React.Component {
                         <Menu.Item key="4">Team 1</Menu.Item>
                         <Menu.Item key="5">Team 2</Menu.Item>
                         </SubMenu>
-                        <Menu.Item key="6">
-                            <span>
-                                <Icon type="file" />
-                                <span className="nav-text">File</span>
-                            </span>
-                        </Menu.Item>
                     </Menu>
                 </Sider>
                 <Layout>

@@ -38,13 +38,21 @@ const renderRoutes = (routes) => {
 
 
 class App extends Component {
-  render() {
-    return (
+    constructor(props) {
+        super(props);
+        this.state = {
+            path: this.props
+        }
+    }
+    render() {
+        var path = this.state;
+        console.log(path)
+        return (
         <BrowserRouter>
             <IndexPage routesChildren = {renderRoutes(childRoutes)}/>
         </BrowserRouter>
-    );
-  }
+        );
+    }
 }
 
 
