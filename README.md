@@ -36,7 +36,9 @@ server {
 127.0.0.1 static.cims.thinktxt.com
 ```
 
-## 开发构建
+## 本地开发构建
+
+本地开发环境用`gulp server`命令。`gulp server`会启动一个基于内存的WEB服务器，端口为9000，同时监听（watch）本地文件的变化，然后自动编译。
 
 ```
 gulp server
@@ -52,6 +54,8 @@ node server/index.js
 
 
 ## 发布生产
+
+正式环境的构建主要是增加了混淆、压缩的插件。
 
 ```
 gulp release

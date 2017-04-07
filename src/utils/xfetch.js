@@ -7,8 +7,8 @@
 import 'es6-promise';
 import 'whatwg-fetch';
 import 'fetch-detector';
-import 'fetch-ie8';
-import 'formdata-emulate';
+// import 'fetch-ie8';
+// import 'formdata-emulate';
 import queryString from 'qs';
 
 const encodeReg = /application\/x-www-form-urlencoded/;
@@ -54,7 +54,7 @@ function BaseFetch(url, options) {
             if (JSONReg.test(type)) {
                 options.body = JSON.stringify(options.body);
             } else if (encodeReg.test(type) || !type) {
-                options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                options.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
                 options.body = queryString.stringify(options.body);
             }
         }

@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
 import { Table } from 'antd';
+import fetcher from 'utils/fetcher';
 
 const columns = [{
     title: 'Name',
@@ -66,6 +67,14 @@ const rowSelection = {
 };
 
 class ListPage extends Component {
+    componentDidMount() {
+        fetcher.get('/getList', {data: {page: 1, size: 10}}).then(res => {
+            console.log(res)
+        })
+        fetcher.post('/login', {contentType: 'application/json', data: {username: 'txBoy'}}).then(res => {
+            console.log(res)
+        })
+    }
     render() {
         return ( <Table rowSelection={rowSelection} columns={columns} dataSource={data} /> );
     }

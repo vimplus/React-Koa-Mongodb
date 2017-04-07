@@ -6,6 +6,7 @@
 
 import Koa from 'koa';
 import Router from 'koa-router';
+import koaBody from 'koa-body';
 import xtpl from 'koa-xtpl';
 import path from 'path';
 
@@ -20,7 +21,27 @@ app.use(xtpl({
     commands: {}
 }))
 
-app.use(router.routes());
+app.use(koaBody());
+app.use(router.routes()).use(router.allowedMethods());
+
+router.get('/getList', async (ctx, next) => {
+    console.log(ctx.query)
+    ctx.response.body = {
+		code: 10000,
+        content: ['list01', 'list02'],
+		msg: 'success'
+	};
+});
+
+router.post('/login', async (ctx, next) => {
+    console.log(ctx.request.body)
+    ctx.response.body = {
+		code: 10000,
+        conntent: 'txBoy',
+		msg: 'success'
+	};
+});
+
 
 app.use(async (ctx, next) => {
     if (ctx.path.startsWith('/test')) {
@@ -32,10 +53,10 @@ app.use(async (ctx, next) => {
     }
 })
 
-
 app.use(async (ctx) => {
     ctx.response.body = 'Test is here.';
 })
+
 
 
 app.listen(port, () => {

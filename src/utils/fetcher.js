@@ -25,7 +25,10 @@ fetcher.request = (function () {
                 setTimeout(resolve.bind(null, cache), 0);
             })
         } else {
-            const headers = {'Content-Type': 'application/json'};
+            const headers = {};
+            if (options.contentType) {
+                headers['Content-Type'] = options.contentType;
+            }
             options.headers = Object.assign((options && options.headers) || {}, headers);
 
             let data = options && options.data || {};
@@ -63,6 +66,7 @@ fetcher.get = function (url, options, success) {
     return this.request(url, {
         method: 'GET',
         headers: options && options.headers,
+        contentType: options && options.contentType,
         data: options && options.data,
         success: success
     });
@@ -80,6 +84,7 @@ fetcher.post = function (url, options, success) {
     return this.request(url, {
         method: 'POST',
         headers: options && options.headers,
+        contentType: options && options.contentType,
         data: options && options.data,
         success: success
     });
