@@ -27,6 +27,7 @@
         "koa": "^2.2.0",
         "koa-body": "^1.6.0",
         "koa-router": "^7.1.1",
+        "koa-views": "^6.0.1",
         "koa-xtpl": "2.0.0",
         "lazy-route": "^1.0.7",
         "lodash": "^4.17.4",

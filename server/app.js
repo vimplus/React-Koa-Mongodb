@@ -7,7 +7,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import koaBody from 'koa-body';
-import xtpl from 'koa-xtpl';
+import views from 'koa-views';
 import path from 'path';
 
 const app = new Koa();
@@ -15,10 +15,8 @@ const router = new Router();
 
 const port = process.env.PORT || 9002;
 
-app.use(xtpl({
-    root: path.resolve(__dirname, '../dist'),
-    extname: 'html',
-    commands: {}
+app.use(views(path.resolve(__dirname, '../dist'), {
+    extension: 'html'
 }))
 
 app.use(koaBody());
