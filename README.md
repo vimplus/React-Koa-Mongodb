@@ -2,6 +2,8 @@
 
 ## 安装依赖
 
+如果本机没有安装过yarn，请先执行`npm install -g yarn`;
+
 ```
 yarn install
 ```

@@ -14,14 +14,14 @@ var config = {
 var logConfig = {
     appenders: [{
         "type": "file",
-        "filename": path.resolve(__dirname, "../../log/server.log"),
+        "filename": path.resolve(__dirname, "../../logs/server.log"),
         "maxLogSize": 20480,
         "backups": 3,
         "category": "server"
     }, {
         "type": "file",
         "absolute": true,
-        "filename": path.resolve(__dirname, "../../log/mongodb.log"),
+        "filename": path.resolve(__dirname, "../../logs/mongodb.log"),
         "maxLogSize": 20480,
         "backups": 10,
         "category": "mongodb"
