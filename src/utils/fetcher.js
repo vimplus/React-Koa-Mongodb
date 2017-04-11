@@ -26,12 +26,11 @@ fetcher.request = (function () {
             })
         } else {
             const headers = {};
-            if (options.contentType) {
-                headers['Content-Type'] = options.contentType;
-            }
+            headers['Content-Type'] = options.contentType || 'application/json';
             options.headers = Object.assign((options && options.headers) || {}, headers);
 
             let data = options && options.data || {};
+            // 公司业务需要的统一参数，如不需要可删除
             data.source = data.source || 'web';
             data.sv = data.sv || '1.0';
             data.version = data.version || '1.0';
@@ -60,7 +59,7 @@ fetcher.request = (function () {
  * @param options  //特殊接口需要headers可通过options传递
  * @param callback //可省略，如果省略则通过then获取回调，推荐使用通过Promise.then方式获取回调
  * @returns Promise
- * @example utils.get('/api/getList', {page:1, size:10}).then(res => {cosnole.log(res)})
+ * @example fetcher.get('/api/getList', {page:1, size:10}).then(res => {cosnole.log(res)})
  */
 fetcher.get = function (url, options, success) {
     return this.request(url, {
@@ -78,7 +77,7 @@ fetcher.get = function (url, options, success) {
  * @param params
  * @param callback //可省略，如果省略则通过then获取回调，推荐使用通过Promise.then方式获取回调
  * @returns Promise
- * @example utils.post('/api/edit', {name:'txBoy'}).then(res => {cosnole.log(res)})
+ * @example fetcher.post('/api/edit', {name:'txBoy'}).then(res => {cosnole.log(res)})
  */
 fetcher.post = function (url, options, success) {
     return this.request(url, {
