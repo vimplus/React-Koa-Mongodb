@@ -71,7 +71,7 @@ class ListPage extends Component {
         fetcher.get('/getList', {data: {page: 1, size: 10}}).then(res => {
             console.log(res)
         })
-        fetcher.post('/info', {data: {username: 'txBoy'}}).then(res => {
+        fetcher.post('/info', {data: {username: 'txBoy', password: 'yy123.com'}}).then(res => {
             console.log(res)
         })
     }

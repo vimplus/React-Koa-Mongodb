@@ -104,7 +104,7 @@ class LayoutPage extends Component {
                 collapsed={this.state.collapsed}
                 onCollapse={this.onCollapse}
                 >
-                    <div className="logo">网金贷平台</div>
+                    <div className="logo">React-Koa-Demo</div>
                     <Menu theme="dark" mode={this.state.mode} defaultOpenKeys={[menuKeys[0]]} defaultSelectedKeys={[menuKeys.join('-')]}>
                         <Menu.Item key="index">
                             <Link to="/">

@@ -34,7 +34,7 @@ function appRoutes(app, router) {
 
     router.post('/info', async (ctx, next) => {
         logger.info(ctx.request.body)
-        // console.log(ctx.request.body)
+        console.log(ctx.request.body)
 
         var url = 'https://request.worktile.com/B1qSNnuTe';
         var res = await sender.post(url, {data: new Date()});
