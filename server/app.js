@@ -6,8 +6,8 @@
 
 import Koa from 'koa';
 import Router from 'koa-router';
-import bodyParser from 'koa-bodyparser';
-import session from 'koa-session';
+import koaBody from 'koa-body';
+//import session from 'koa-session';
 import views from 'koa-views';
 import path from 'path';
 import log4js from 'log4js';
@@ -29,7 +29,7 @@ app.use(views(path.resolve(__dirname, '../dist'), {
     extension: 'html'
 }))
 
-app.use(bodyParser());
+app.use(koaBody());
 app.use(router.routes()).use(router.allowedMethods());
 
 router.get('/getList', async (ctx, next) => {

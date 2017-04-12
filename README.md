@@ -64,3 +64,27 @@ gulp release
 ```
 
 发布后可在`dist`目录查看所有静态资源
+
+
+## 应用相关服务配置
+
+### 本地数据库（MongoDB）
+
+#### 安装
+
+* 安装Mongodb`brew install mongodb`
+
+* 在根目录 / 下创建 `data/db` 目录，用于放置`mongodb`数据，并且给该目录设置用户（txBoy）权限
+
+```bash
+sudo mkdir -p /data/db
+sudo chown txBoy /data/db
+```
+
+#### 启动
+
+```
+mongod --dbpath=/data/db --port=27017
+//或者省略后面的参数
+mongod
+```
