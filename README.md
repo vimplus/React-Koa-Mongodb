@@ -87,7 +87,7 @@ sudo chown txBoy /data/db
 mongod
 ```
 
-指定`数据库路径`和`端口`启动:
+或者指定`数据库路径`和`端口`启动:
 
 ```
 mongod --dbpath=/data/db --port=27017
