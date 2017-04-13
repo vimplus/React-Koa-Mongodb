@@ -4,7 +4,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-const AggressiveMergingPlugin = webpack.optimize.AggressiveMergingPlugin;
 
 process.noDeprecation = true;
 
@@ -17,6 +16,16 @@ module.exports = {
     //文件输出配置
     output: {
         path: path.resolve(__dirname, '../dist'), //打包输出目录
+    },
+    // 声明CDN加载的库，不会通过webpack打包
+    externals: {
+        "react": 'React',
+        "react-dom": "ReactDOM",
+        "react-router": "ReactRouter",
+        'history': "History",
+        'redux': 'Redux',
+        'react-redux': 'ReactRedux',
+        'lodash': '_'
     },
     //加载器配置
     module: {

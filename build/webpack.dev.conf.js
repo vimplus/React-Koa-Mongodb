@@ -16,7 +16,7 @@ module.exports = merge(webpackBaseConfig, {
         filename: 'js/[name].[hash:8].js',
         chunkFilename: 'js/[id].chunk.[hash:8].js'
     },
-    devtool: '#eval-source-map',
+    //devtool: '#eval-source-map',
     devServer: {
       contentBase: path.join(__dirname, "dist"),
       compress: true,

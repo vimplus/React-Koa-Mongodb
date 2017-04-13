@@ -57,3 +57,7 @@ gulp.task('release', function(callback) {
 		callback();
 	});
 });
+
+gulp.task('default', ['server'], function() {
+	console.log( 'default task...' );
+});

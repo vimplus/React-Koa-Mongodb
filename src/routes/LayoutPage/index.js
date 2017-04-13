@@ -11,8 +11,7 @@ import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
-import _ from 'lodash';
-
+import {removeWithoutCopy} from 'utils/util';
 import 'scss/global.scss';
 
 class LayoutPage extends Component {
@@ -58,7 +57,7 @@ class LayoutPage extends Component {
         list.forEach((x, key) => {
             (x.childRoutes || []).map( y => {
                 if (y.path.indexOf(':') > 0) {
-                    _.remove(x.childRoutes, y);
+                    removeWithoutCopy(x.childRoutes, y);
                 }
             })
         })
