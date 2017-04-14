@@ -9,7 +9,7 @@ import 'whatwg-fetch';
 import 'fetch-detector';
 // import 'fetch-ie8';
 // import 'formdata-emulate';
-import queryString from 'qs';
+import queryString from 'querystring';
 
 const encodeReg = /application\/x-www-form-urlencoded/;
 const JSONReg = /application\/json/;
