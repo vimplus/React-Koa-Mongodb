@@ -40,6 +40,9 @@ module.exports = merge(webpackBaseConfig, {
     },
     //插件项
     plugins: [
+        new webpack.HotModuleReplacementPlugin(), // enable HMR globally
+        new webpack.NamedModulesPlugin(),        // prints more readable module names in the browser console on HMR updates
+        
         new webpack.HashedModuleIdsPlugin(),    //稳定chunkhash
         new AggressiveMergingPlugin(),          //Merge chunks
         new HtmlWebpackHarddiskPlugin(),

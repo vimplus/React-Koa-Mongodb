@@ -1,10 +1,11 @@
 {
     "presets": [
-        "es2015",
+        ["es2015", {"modules": false}],
         "stage-0",
         "react"
     ],
     "plugins": [
+        "react-hot-loader/babel",
         ["import", { "libraryName": "antd", "style": "css", "css": "true" }]
     ]
 }

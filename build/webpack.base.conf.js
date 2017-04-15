@@ -10,8 +10,12 @@ process.noDeprecation = true;
 module.exports = {
     //文件入口配置
     entry: {
-        index: "./src/entry/index.js",
-        vendor: ['react', 'react-dom', 'react-router', 'react-router-dom']
+        index: [
+            'react-hot-loader/patch',
+            'webpack-dev-server/client?http://127.0.0.1:9000',
+            'webpack/hot/only-dev-server',
+            './src/entry/index.js'
+        ]
     },
     //文件输出配置
     output: {
@@ -32,7 +36,7 @@ module.exports = {
         rules: [{
             test: /\.jsx?$/,
             exclude: /(node_modules|bower_components)/,
-            loader: "babel-loader"
+            loader: ['babel-loader']
         }, {
 			test: /\.(png|jpe?g|gif)$/i,
 			loader: 'url-loader',
@@ -57,14 +61,14 @@ module.exports = {
 			'Promise': 'bluebird'
 		}),*/
         new CommonsChunkPlugin({
-            name:['manifest', 'vendor'].reverse(),
+            name:['manifest', 'index'].reverse(),
             minChunks: Infinity
         }),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
             filename: 'index.html',
             template: './src/views/index.html', //html模板路径
-            chunks: ['manifest', 'vendor', 'index']  // manifest: 可以理解为模块清单，载货单
+            chunks: ['manifest', 'index']  // manifest: 可以理解为模块清单，载货单
         })
     ],
     resolve: {

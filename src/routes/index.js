@@ -60,9 +60,11 @@ const renderRoutes = (routes) => {
 
 class App extends Component {
     render() {
+        var routes = renderRoutes(routesConfig);
+        console.log(routes)
         return (
             <BrowserRouter>
-                <LayoutPage routesChildren = {renderRoutes(routesConfig)} menuConfig = {routesConfig}/>
+                <LayoutPage routesChildren = {routes} menuConfig = {routesConfig}/>
             </BrowserRouter>
         );
     }

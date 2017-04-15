@@ -29,8 +29,8 @@ const columns = [{
 }];
 const data = [{
     key: '1',
-    name: 'John Brown',
-    age: 32,
+    name: 'txBoyxxx',
+    age: 25,
     address: 'New York No. 1 Lake Park',
 }, {
     key: '2',
