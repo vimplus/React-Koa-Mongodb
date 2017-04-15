@@ -4,20 +4,21 @@
  * @created		2017-04-05
  */
 
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Link} from 'react-router-dom';
+import { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
-import {removeWithoutCopy} from 'utils/util';
+import { removeWithoutCopy } from 'utils/util';
 import 'scss/global.scss';
 
 class LayoutPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            isRenderSider: true,
             menuConfig: this.getNav(),
             collapsed: false,
             mode: 'inline',
@@ -94,8 +95,8 @@ class LayoutPage extends Component {
     }
     render() {
         var menuConfig = this.state.menuConfig;
+        // console.log(menuConfig)
         var menuKeys = this.getMenuKeys();
-        console.log(menuConfig)
         return (
             <Layout>
                 <Sider
@@ -103,12 +104,12 @@ class LayoutPage extends Component {
                 collapsed={this.state.collapsed}
                 onCollapse={this.onCollapse}
                 >
-                    <div className="logo">React-Koa-Demo</div>
+                    <div className="logo">React-Node-Demo</div>
                     <Menu theme="dark" mode={this.state.mode} defaultOpenKeys={[menuKeys[0]]} defaultSelectedKeys={[menuKeys.join('-')]}>
                         <Menu.Item key="index">
                             <Link to="/">
                                 <span>
-                                    <Icon type="file" />
+                                    <Icon type="home" />
                                     <span className="nav-text">首页</span>
                                 </span>
                             </Link>
@@ -117,9 +118,9 @@ class LayoutPage extends Component {
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header style={{ background: '#454545'}} />
+                    <Header className='ant-layout-header' style={{ background: '#454545'}}>乐潇游【React-Node-Mongodb】技术栈实例平台</Header>
                     <Content style={{ margin: '0 16px' }}>
-                        <Breadcrumb style={{ margin: '12px 0' }}>
+                        <Breadcrumb className='ant-layout-breadcrumb'>
                             <Breadcrumb.Item>User</Breadcrumb.Item>
                             <Breadcrumb.Item>Content</Breadcrumb.Item>
                         </Breadcrumb>
@@ -127,7 +128,7 @@ class LayoutPage extends Component {
                             {this.props.routesChildren}
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2016 Created by Ant UED</Footer>
+                    <Footer style={{ textAlign: 'center' }}>Copyright © 2017 Thinktxt Inc. All Rights Reserved.</Footer>
                 </Layout>
             </Layout>
         );

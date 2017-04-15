@@ -1,9 +1,6 @@
 import path from 'path';
 
 var config = {
-    db: 'lms',
-    host: '127.0.0.1',
-    port: 27017,
     dbAddr: '172.30.3.206',     // remote mongo server 172.30.3.206
     dbPort: '27017',
     dbName: 'lms',

@@ -9,8 +9,9 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, BrowserRouter, Route, Link} from 'react-router-dom';
 import 'scss/global.scss';
 
-import App from '../routes/index.js';
 import { AppContainer } from 'react-hot-loader';
+
+import App from '../routes/index.js';
 
 
 const render = (Component) => {

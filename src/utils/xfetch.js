@@ -26,7 +26,15 @@ function checkStatus(response) {
 }
 
 function parseJSON(res) {
-    return res.json();
+    if (res.status === 200) {
+        return res.json();
+    } else {
+        return {
+            status: 'error',
+            msg: '网络异常，请稍后再试！',
+            code: -500
+        };
+    }
 }
 
 /**
