@@ -29,6 +29,10 @@
     height: 100%;
 }
 
+.simple-warp {
+    display: flex;
+    width: 100%;
+}
 
 .ant-layout-sider .logo {
   height: 32px;
@@ -55,4 +59,15 @@
 
 .ant-layout-sider .ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
   display: none;
+}
+
+.ant-layout-header {
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    background: #454545;
+}
+
+.ant-layout-breadcrumb {
+    margin: 12px 0;
 }

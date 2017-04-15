@@ -4,7 +4,7 @@
  * @created		2017-03-21
  */
 
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 class DetailPage extends Component {
     render() {

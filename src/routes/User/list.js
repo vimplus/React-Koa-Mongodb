@@ -4,10 +4,11 @@
  * @created		2017-03-21
  */
 
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Link} from 'react-router-dom';
+import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Table } from 'antd';
 import fetcher from 'utils/fetcher';
+import { formatTimestamp } from 'utils/util';
 
 const columns = [{
     title: 'Name',
@@ -29,8 +30,8 @@ const columns = [{
 }];
 const data = [{
     key: '1',
-    name: 'txBoyxxx',
-    age: 25,
+    name: 'John Brown',
+    age: 32,
     address: 'New York No. 1 Lake Park',
 }, {
     key: '2',
@@ -68,12 +69,17 @@ const rowSelection = {
 
 class ListPage extends Component {
     componentDidMount() {
-        fetcher.get('/getList', {data: {page: 1, size: 10}}).then(res => {
+        /*fetcher.get('/getList', {data: {page: 1, size: 10}}).then(res => {
             console.log(res)
         })
-        fetcher.post('/info', {data: {username: 'txBoy', password: 'yy123.com'}}).then(res => {
+        fetcher.post('/info', {data: {username: 'txBoy'}}).then(res => {
+            console.log(res)
+        })*/
+        fetcher.get('/api/contract/list').then(res => {
             console.log(res)
         })
+        var timestamp = new Date().getTime();
+        console.log(formatTimestamp(timestamp))
     }
     render() {
         return ( <Table rowSelection={rowSelection} columns={columns} dataSource={data} /> );

@@ -1,5 +1,5 @@
 /**
- * @overview	Router Config
+ * @overview	Router Index
  * @author		txBoy
  * @created		2017-03-21
  */
@@ -8,36 +8,11 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, BrowserRouter, Link} from 'react-router-dom';
 import LazyRoute from 'lazy-route';
 
-//import IndexPage from './IndexPage';
+import AuthLayout from './Auth';
+/*import ResetPwd from './Auth/resetPwd';*/
 import LayoutPage from './LayoutPage';
 
-const routesConfig = [
-    {
-        path: '/',
-        exact: true,
-        icon: 'home',
-        name: '首页',
-        component: './IndexPage/index'
-    },
-    {
-        path: 'user',
-        icon: 'user',
-        name: '用户',
-        childRoutes: [
-            {
-                name: '列表',
-                path: '/user/list',
-                component: './User/list'
-            },
-            {
-                name: '详情',
-                path: '/user/detail/:name',
-                component: './User/detail'
-            }
-        ]
-    }
-]
-
+import routesConfig from './routes';
 
 // 定义路由组件
 const RouteWithSubRoutes = (route) => (
@@ -57,14 +32,46 @@ const renderRoutes = (routes) => {
     })
 }
 
-
 class App extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            isRenderSider: true,
+        };
+    }
+    componentWillMount() {
+        this.hideSider();
+    }
+    hideSider() {
+        var pathname = window.location.pathname;
+        var pathArr = ['login', 'resetPwd']
+        for (var i = 0; i < pathArr.length; i++) {
+            if (pathname.indexOf(pathArr[i]) >= 0) {
+                this.setState({
+                    isRenderSider: false
+                })
+            }
+        }
+        console.log(location.pathname)
+    }
+    renderLayoutPage() {
+        var isRender = this.state.isRenderSider;
+        if (isRender) {
+            return (
+                <LayoutPage routesChildren = {renderRoutes(routesConfig)} menuConfig = {routesConfig}/>
+            )
+        } else {
+            return (
+                <div className="simple-warp">
+                    <AuthLayout/>
+                </div>
+            )
+        }
+    }
     render() {
-        var routes = renderRoutes(routesConfig);
-        console.log(routes)
         return (
             <BrowserRouter>
-                <LayoutPage routesChildren = {routes} menuConfig = {routesConfig}/>
+                {this.renderLayoutPage()}
             </BrowserRouter>
         );
     }
