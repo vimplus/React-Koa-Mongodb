@@ -29,7 +29,7 @@ const columns = [{
 }];
 const data = [{
     key: '1',
-    name: 'txBoyxxx',
+    name: 'txBoy',
     age: 25,
     address: 'New York No. 1 Lake Park',
 }, {
