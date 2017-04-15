@@ -30,8 +30,8 @@ const columns = [{
 }];
 const data = [{
     key: '1',
-    name: 'John Brown',
-    age: 32,
+    name: 'txBoy',
+    age: 25,
     address: 'New York No. 1 Lake Park',
 }, {
     key: '2',
@@ -69,13 +69,10 @@ const rowSelection = {
 
 class ListPage extends Component {
     componentDidMount() {
-        /*fetcher.get('/getList', {data: {page: 1, size: 10}}).then(res => {
+        fetcher.get('/getList', {data: {page: 1, size: 10}}).then(res => {
             console.log(res)
         })
         fetcher.post('/info', {data: {username: 'txBoy'}}).then(res => {
-            console.log(res)
-        })*/
-        fetcher.get('/api/contract/list').then(res => {
             console.log(res)
         })
         var timestamp = new Date().getTime();
