@@ -31,6 +31,7 @@ class AuthLayout extends Component {
                 <Content style={{ padding: '30px 50px' }}>
                   <div style={{ background: '#fff', padding: 24, minHeight: 600 }}>
                       <Route path='/login' render={(props) => <LazyRoute {...props} component={import('./login')} />} />
+                      <Route path='/register' render={(props) => <LazyRoute {...props} component={import('./register')} />} />
                       <Route path='/resetPwd' render={(props) => <LazyRoute {...props} component={import('./resetPwd')} />} />
                   </div>
                 </Content>

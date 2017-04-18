@@ -11,9 +11,11 @@ const { Header, Content, Footer } = Layout;
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 const FormItem = Form.Item;
 
+import fetcher from 'utils/fetcher';
+import { md5 } from 'utils/util';
 import './auth.scss';
 
-class ResetPwd extends Component {
+class Register extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -25,6 +27,12 @@ class ResetPwd extends Component {
     	this.props.form.validateFieldsAndScroll((err, values) => {
     		if (!err) {
     			console.log('Received values of form: ', values);
+                values.password = md5(values.password);
+                delete values.confirm;
+                var params = values;
+                fetcher.post('/api/user/register', {data: params}).then(res => {
+                    console.log(res)
+                })
     		}
     	});
     }
@@ -85,8 +93,21 @@ class ResetPwd extends Component {
     	};
         return (
             <div className="reset-pwd-module">
-                <div className="login-form-header">找回密码</div>
+                <div className="login-form-header">用户注册</div>
                 <Form onSubmit = {this.handleSubmit}>
+                    <FormItem { ...formItemLayout } label = "用户名" hasFeedback>
+                    {
+                        getFieldDecorator('username', {
+                            rules: [{
+                                type: 'string',
+                                message: 'The input is not valid username!',
+                            }, {
+                                required: true,
+                                message: 'Please input your username!',
+                            }],
+                        })(<Input />)
+                    }
+                    </FormItem>
                     <FormItem { ...formItemLayout } label = "邮箱" hasFeedback>
                     {
                         getFieldDecorator('email', {
@@ -100,7 +121,7 @@ class ResetPwd extends Component {
                         })(<Input />)
                     }
                     </FormItem>
-                    <FormItem { ...formItemLayout } label = "新密码" hasFeedback>
+                    <FormItem { ...formItemLayout } label = "密码" hasFeedback>
                     {
                         getFieldDecorator('password', {
                             rules: [{
@@ -125,7 +146,7 @@ class ResetPwd extends Component {
                     }
                     </FormItem>
                     <FormItem { ...tailFormItemLayout }>
-                        <Button className="account-form-button" type = "primary" htmlType="submit" size="large" > 重置密码 < /Button>
+                        <Button className="account-form-button" type = "primary" htmlType="submit" size="large" > 立即注册 < /Button>
                     </FormItem>
                 </Form>
             </div>
@@ -133,6 +154,6 @@ class ResetPwd extends Component {
     }
 }
 
-const ResetPwdForm = Form.create()(ResetPwd);
+const RegisterForm = Form.create()(Register);
 
-export default ResetPwdForm;
+export default RegisterForm;

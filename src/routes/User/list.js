@@ -8,7 +8,7 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'antd';
 import fetcher from 'utils/fetcher';
-import { formatTimestamp } from 'utils/util';
+import { md5, formatTimestamp } from 'utils/util';
 
 const columns = [{
     title: 'Name',

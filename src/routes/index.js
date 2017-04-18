@@ -44,7 +44,7 @@ class App extends Component {
     }
     hideSider() {
         var pathname = window.location.pathname;
-        var pathArr = ['login', 'resetPwd']
+        var pathArr = ['login', 'register', 'resetPwd']
         for (var i = 0; i < pathArr.length; i++) {
             if (pathname.indexOf(pathArr[i]) >= 0) {
                 this.setState({

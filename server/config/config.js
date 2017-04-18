@@ -1,10 +1,12 @@
 import path from 'path';
 
 var config = {
-    dbAddr: '172.30.3.206',     // remote mongo server 172.30.3.206
+    host: '127.0.0.1',
+    dbHost: '127.0.0.1',
     dbPort: '27017',
-    dbName: 'lms',
-    cookieSecret: 'lmsCookie'
+    dbName: 'cims',
+    mongodb: 'mongodb://127.0.0.1:27017/cims',
+    cookieSecret: 'cimsCookie'
 }
 
 // Config for log4js.

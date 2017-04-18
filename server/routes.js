@@ -2,12 +2,15 @@ import log4js from 'log4js';
 import {logConfig} from './config/config.js';
 import sender from './utils/sender';
 
+import user from './controllers/user.controller';
+
 log4js.configure( logConfig );
 const logger = log4js.getLogger('server');
 
 function appRoutes(app, router) {
-
     app.use(router.routes()).use(router.allowedMethods());
+
+    router.post('/api/user/register', user.register);
 
     router.get('/getList', async (ctx, next) => {
         //console.log(ctx.request.query)
@@ -34,7 +37,7 @@ function appRoutes(app, router) {
 
     router.post('/info', async (ctx, next) => {
         logger.info(ctx.request.body)
-        console.log(ctx.request.body)
+        // console.log(ctx.request.body)
 
         var url = 'https://request.worktile.com/B1qSNnuTe';
         var res = await sender.post(url, {data: new Date()});
@@ -43,7 +46,7 @@ function appRoutes(app, router) {
 
         ctx.response.body = {
     		code: 10000,
-            conntent: data,
+            content: data,
     		msg: 'success'
     	};
     });

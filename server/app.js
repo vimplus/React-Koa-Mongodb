@@ -17,6 +17,7 @@ import {config, logConfig} from './config/config.js';
 // import {logConfig} from './config/winston.conf';
 import sender from './utils/sender';
 import appRoutes from './routes';
+import mongo from './config/mongoose';
 
 log4js.configure( logConfig );
 const logger = log4js.getLogger('server');
@@ -31,8 +32,16 @@ app.use(views(path.resolve(__dirname, '../dist'), {
 }))
 
 app.use(koaBody());
-// app routes config
-appRoutes(app, router);
+
+var db = mongo();
+db.connection.on("error", function (error) {
+    console.log("数据库连接失败：" + error);
+});
+db.connection.on("open", function () {
+    console.log("------数据库连接成功！------");
+});
+
+appRoutes(app, router);     // app routes config.
 
 app.use(async (ctx, next) => {
     if (ctx.path.startsWith('/test')) {
