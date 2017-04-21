@@ -9,16 +9,38 @@ import { Link } from 'react-router-dom';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 const FormItem = Form.Item;
 
+import fetcher from 'utils/fetcher';
+import { md5 } from 'utils/util';
 import './auth.scss';
 
 class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            userInfo: null
+        }
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                values.password = md5(values.password);
+                this._onLogin(values)
             }
         });
+    }
+    _onLogin(params) {
+        fetcher.post('/api/user/login', {data: params}).then(res => {
+            console.log(res)
+            if (res.code === 1000 && res.data) {
+                var userInfo = res.data;
+                localStorage.setItem('username', userInfo.username);
+                this.setState({
+                    userInfo: userInfo
+                })
+            }
+        })
     }
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -27,7 +49,7 @@ class Login extends Component {
                 <div className="login-form-header">用户登录</div>
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <FormItem>
-                        {getFieldDecorator('userName', {
+                        {getFieldDecorator('username', {
                             rules: [{ required: true, message: '请输入用户名！' }],
                         })(
                             <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />

@@ -1,3 +1,6 @@
+
+@import './animation.scss';
+
 .App {
   text-align: center;
 }
@@ -70,4 +73,76 @@
 
 .ant-layout-breadcrumb {
     margin: 12px 0;
+}
+
+/* icon */
+.iconbox {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    border-radius: 50px;
+    border: 4px solid #6c3;
+    margin: 15px auto;
+}
+.icon-lose {border-color: #fc454c;}
+.icon-success .line-short {
+    width: 25px;
+    height: 5px;
+    position: absolute;
+    left: 14px;
+    top: 46px;
+    border-radius: 4px;
+    background-color: #6c3;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-animation: success-short-Animation .65s;
+    -moz-animation: success-short-Animation .65s;
+    animation: success-short-Animation .65s;
+}
+.icon-success .line-long {
+    width: 45px;
+    height: 5px;
+    position: absolute;
+    right: 8px;
+    top: 38px;
+    border-radius: 4px;
+    background-color: #6c3;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-animation: success-long-Animation .65s;
+    -moz-animation: success-long-Animation .65s;
+    animation: success-long-Animation .65s;
+}
+.losebox {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    margin: 0 auto;
+    text-align: center;
+}
+.losebox {
+    -webkit-animation: lose-Animation .5s;
+    -moz-animation: lose-Animation .5s;
+    animation: lose-Animation .5s;
+}
+.icon-lose .line-left, .icon-lose .line-right {
+    position: absolute;
+    left: 17px;
+    top: 37px;
+    width: 47px;
+    height: 5px;
+    border-radius: 4px;
+    background: #fc454c;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.icon-lose .line-right {
+    right: 11px;
+    top: 37px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }

@@ -1,0 +1,69 @@
+/* success animation */
+@keyframes success-short-Animation {
+    0% {
+        width: 0;
+        left: 1px;
+        top: 19px
+    }
+    54% {
+        width: 0;
+        left: 1px;
+        top: 19px
+    }
+    70% {
+        width: 50px;
+        left: -4px;
+        top: 37px
+    }
+    84% {
+        width: 17px;
+        left: 21px;
+        top: 48px
+    }
+    100% {
+        width: 25px;
+        left: 14px;
+        top: 45px
+    }
+}
+@keyframes success-long-Animation {
+    0% {
+        width: 0;
+        right: 46px;
+        top: 54px
+    }
+    65% {
+        width: 0;
+        right: 46px;
+        top: 54px
+    }
+    84% {
+        width: 55px;
+        right: 0;
+        top: 35px
+    }
+    100% {
+        width: 47px;
+        right: 8px;
+        top: 38px
+    }
+}
+/* lose animation */
+@keyframes lose-Animation {
+    0% {
+        transform: scale(0.6);
+        opacity: .2
+    }
+    50% {
+        transform: scale(0.6);
+        opacity: .5
+    }
+    80% {
+        transform: scale(1.15);
+        opacity: .8
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1.0
+    }
+}

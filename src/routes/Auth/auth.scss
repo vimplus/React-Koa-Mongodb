@@ -22,7 +22,27 @@
 }
 
 
+
+.wrap-register,
 .reset-pwd-module {
     width: 400px;
     margin: 100px auto 0;
+}
+
+.register-module,
+.success-module {
+    &.show {
+        display: block;
+    }
+    &.hide {
+        display: none;
+    }
+}
+
+.success-module {
+
+    .complete-text {
+        font-size: 18px;
+        text-align: center;
+    }
 }

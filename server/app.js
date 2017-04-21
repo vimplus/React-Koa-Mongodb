@@ -27,6 +27,7 @@ const router = new Router();
 
 const port = process.env.PORT || 9002;
 
+app.keys = ['secret', 'key'];
 app.use(views(path.resolve(__dirname, '../dist'), {
     extension: 'html'
 }))

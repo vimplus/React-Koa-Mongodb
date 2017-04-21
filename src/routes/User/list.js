@@ -8,46 +8,29 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'antd';
 import fetcher from 'utils/fetcher';
-import { md5, formatTimestamp } from 'utils/util';
+import { md5, formatTimestamp, formatGender } from 'utils/util';
 
 const columns = [{
-    title: 'Name',
-    dataIndex: 'name',
-    render: (text, item) => <Link to = {'/user/detail/'+item.name}> {text} </Link>,
+    title: '用户名',
+    dataIndex: 'username',
+    render: (text, item) => <Link to = {'/user/detail/'+item.username}> {text} </Link>
 }, {
-    title: 'Age',
-    dataIndex: 'age',
+    title: '性别',
+    dataIndex: 'gender',
+    render: (text, item) => formatGender(item.gender)
 }, {
-    title: 'Address',
-    dataIndex: 'address',
+    title: '邮箱',
+    dataIndex: 'email',
+}, {
+    title: '操作',
+    dataIndex: 'uid',
     render: (text, item) => (
         <span>
-          <a href="#">Action - {item.name}</a>
+          <a href="#">Action - {item.uid}</a>
           <span className="ant-divider" />
           <a href="#">Delete</a>
         </span>
     ),
-}];
-const data = [{
-    key: '1',
-    name: 'txBoy',
-    age: 25,
-    address: 'New York No. 1 Lake Park',
-}, {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-}, {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-}, {
-    key: '4',
-    name: 'Disabled User',
-    age: 99,
-    address: 'Sidney No. 1 Lake Park',
 }];
 
 // rowSelection object indicates the need for row selection
@@ -68,9 +51,24 @@ const rowSelection = {
 };
 
 class ListPage extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            userList: []
+        }
+    }
     componentDidMount() {
-        fetcher.get('/getList', {data: {page: 1, size: 10}}).then(res => {
+        /*fetcher.get('/getList', {data: {page: 1, size: 10}}).then(res => {
             console.log(res)
+        })*/
+        fetcher.get('/api/user/getUsers', {data: {page: 1, size: 10}}).then(res => {
+            console.log(res)
+            if (res.code === 1000 && res.data) {
+                var userList = res.data.list || [];
+                this.setState({
+                    userList: userList
+                })
+            }
         })
         fetcher.post('/info', {data: {username: 'txBoy'}}).then(res => {
             console.log(res)
@@ -79,7 +77,7 @@ class ListPage extends Component {
         console.log(formatTimestamp(timestamp))
     }
     render() {
-        return ( <Table rowSelection={rowSelection} columns={columns} dataSource={data} /> );
+        return ( <Table rowKey="id" rowSelection={rowSelection} columns={columns} dataSource={this.state.userList} /> );
     }
 }
 

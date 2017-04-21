@@ -59,7 +59,7 @@ fetcher.request = (function () {
  * @param options  //特殊接口需要headers可通过options传递
  * @param callback //可省略，如果省略则通过then获取回调，推荐使用通过Promise.then方式获取回调
  * @returns Promise
- * @example fetcher.get('/api/getList', {page:1, size:10}).then(res => {cosnole.log(res)})
+ * @example fetcher.get('/api/getList', {data: {page:1, size:10} }).then(res => {cosnole.log(res)})
  */
 fetcher.get = function (url, options, success) {
     return this.request(url, {
@@ -77,7 +77,7 @@ fetcher.get = function (url, options, success) {
  * @param params
  * @param callback //可省略，如果省略则通过then获取回调，推荐使用通过Promise.then方式获取回调
  * @returns Promise
- * @example fetcher.post('/api/edit', {name:'txBoy'}).then(res => {cosnole.log(res)})
+ * @example fetcher.post('/api/edit', {data: {name:'txBoy'} }).then(res => {cosnole.log(res)})
  */
 fetcher.post = function (url, options, success) {
     return this.request(url, {

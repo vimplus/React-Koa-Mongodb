@@ -10,8 +10,15 @@ const Schema = mongoose.Schema;
 // 定义数据库中的集合名称（相当于 MySQL 数据库中的表名），如果有则保存到该集合，如果没有则创建名为 cims_users 的集合后保存数据。
 const COLLECTTION = 'cims_users';
 
+var CounterSchema = Schema({
+    _id: {type: String, required: true},
+    seq: { type: Number, default: 1 }
+});
+var Counter = mongoose.model('counter', CounterSchema);
+
 // 定义user的数据模型。
 var UserSchema = new Schema({
+    uid: { type: String },
     username: {
         type: String,
         unique: true,
@@ -54,13 +61,24 @@ var UserSchema = new Schema({
         default: Date.now()
     },
     updateTime: Number
-})
-UserSchema.set('autoIndex', false);
+});
+
+// const IdsModel = mongoose.model('ids', {uid: Number, user: String});
+
+UserSchema.set('autoIndex', true);
 // On every save, add the update time.
 UserSchema.pre('save', function(next) {
+    var doc = this;
+
     var currentDate = Date.now();
     this.updateTime = currentDate;
-    next();
+    // next();
+
+    Counter.findByIdAndUpdate({_id: 'entityUid'}, {$inc: { seq: 1} }, function(error, counter) {
+        if(error) return next(error);
+        doc.uid = counter.seq;
+        next();
+    });
 });
 
 // 根据Schema创建一个Model

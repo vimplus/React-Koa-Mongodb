@@ -11,6 +11,8 @@ function appRoutes(app, router) {
     app.use(router.routes()).use(router.allowedMethods());
 
     router.post('/api/user/register', user.register);
+    router.post('/api/user/login', user.login);
+    router.get('/api/user/getUsers', user.getList);
 
     router.get('/getList', async (ctx, next) => {
         //console.log(ctx.request.query)
@@ -29,8 +31,8 @@ function appRoutes(app, router) {
         var data = res && res.data;
         //console.log(data)
         ctx.response.body = {
-    		code: 10000,
-            content: data,
+    		code: 1000,
+            data: data,
     		msg: 'success'
     	};
     });
@@ -45,8 +47,8 @@ function appRoutes(app, router) {
         // console.log(data)
 
         ctx.response.body = {
-    		code: 10000,
-            content: data,
+    		code: 1000,
+            data: data,
     		msg: 'success'
     	};
     });
