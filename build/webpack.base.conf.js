@@ -9,14 +9,9 @@ process.noDeprecation = true;
 
 module.exports = {
     //文件入口配置
-    entry: {
-        index: [
-            'react-hot-loader/patch',
-            'webpack-dev-server/client?http://127.0.0.1:9000',
-            'webpack/hot/only-dev-server',
-            './src/entry/index.js'
-        ]
-    },
+    /*entry: {
+        index: './src/entry/index.js'
+    },*/
     //文件输出配置
     output: {
         path: path.resolve(__dirname, '../dist'), //打包输出目录

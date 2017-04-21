@@ -13,8 +13,8 @@ import UserModel from '../models/user.model';
 
 const COLLECTTION = 'cims_users';
 const User = mongoose.model(COLLECTTION);
-const IdsModel = mongoose.model('ids', {uid: Number, user: String});
-const Ids = mongoose.model('ids');
+/*const IdsModel = mongoose.model('ids', {uid: Number, user: String});
+const Ids = mongoose.model('ids');*/
 
 var userService = {
     register: async function (info) {

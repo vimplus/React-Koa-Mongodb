@@ -11,6 +11,10 @@ const AggressiveMergingPlugin = webpack.optimize.AggressiveMergingPlugin;
 const webpackBaseConfig = require('./webpack.base.conf.js');
 
 module.exports = merge(webpackBaseConfig, {
+    //文件入口配置
+    entry: {
+        index: './src/entry/index.js'
+    },
     //文件输出配置
     output: {
         publicPath: '/',

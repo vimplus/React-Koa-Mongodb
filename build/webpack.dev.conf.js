@@ -11,6 +11,15 @@ const AggressiveMergingPlugin = webpack.optimize.AggressiveMergingPlugin;
 const webpackBaseConfig  = require('./webpack.base.conf.js');
 
 module.exports = merge(webpackBaseConfig, {
+    //文件入口配置
+    entry: {
+        index: [
+            'react-hot-loader/patch',
+            'webpack-dev-server/client?http://127.0.0.1:9000',
+            'webpack/hot/only-dev-server',
+            './src/entry/index.dev.js'
+        ]
+    },
     output: {
         publicPath: '//static.cims.thinktxt.com/', //webpack-dev-server访问的路径
         filename: 'js/[name].[hash:8].js',
@@ -42,7 +51,7 @@ module.exports = merge(webpackBaseConfig, {
     plugins: [
         new webpack.HotModuleReplacementPlugin(), // enable HMR globally
         new webpack.NamedModulesPlugin(),        // prints more readable module names in the browser console on HMR updates
-        
+
         new webpack.HashedModuleIdsPlugin(),    //稳定chunkhash
         new AggressiveMergingPlugin(),          //Merge chunks
         new HtmlWebpackHarddiskPlugin(),
