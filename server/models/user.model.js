@@ -14,11 +14,11 @@ var CounterSchema = Schema({
     _id: {type: String, required: true},
     seq: { type: Number, default: 1 }
 });
-var Counter = mongoose.model('counter', CounterSchema);
+var Counter = mongoose.model('counters', CounterSchema);
 
 // 定义user的数据模型。
 var UserSchema = new Schema({
-    uid: { type: String },
+    uid: { type: Number },
     username: {
         type: String,
         unique: true,
