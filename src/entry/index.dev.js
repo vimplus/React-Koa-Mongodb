@@ -23,10 +23,6 @@ const render = (Component) => {
     );
 };
 
-/*ReactDOM.render(
-    <App/>,
-    document.getElementById('App')
-);*/
 
 render(App);
 

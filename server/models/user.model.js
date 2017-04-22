@@ -76,7 +76,7 @@ UserSchema.pre('save', function(next) {
 
     Counter.findByIdAndUpdate({_id: 'entityUid'}, {$inc: { seq: 1} }, function(error, counter) {
         if(error) return next(error);
-        doc.uid = counter.seq;
+        doc.uid = counter && counter.seq;
         next();
     });
 });

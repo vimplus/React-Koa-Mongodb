@@ -70,9 +70,7 @@ class ListPage extends Component {
                 })
             }
         })
-        fetcher.post('/info', {data: {username: 'txBoy'}}).then(res => {
-            console.log(res)
-        })
+
         var timestamp = new Date().getTime();
         console.log(formatTimestamp(timestamp))
     }
