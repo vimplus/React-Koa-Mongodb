@@ -12,7 +12,7 @@ import views from 'koa-views';
 import path from 'path';
 import log4js from 'log4js';
 // import winston from 'winston';
-import queryString from 'queryString';
+import queryString from 'querystring';
 import {config, logConfig} from './config/config.js';
 // import {logConfig} from './config/winston.conf';
 import sender from './utils/sender';
