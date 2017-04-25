@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
 import { md5 } from '../utils/util';
+import { config } from '../config/config';
 import { common, account } from '../config/statusCode';
 import UserModel from '../models/user.model';
 
@@ -48,7 +49,7 @@ var userService = {
             console.log('Doc', doc)
             if (doc) {
                 if (info.password === doc.password) {
-                    var token = jwt.sign( {username: doc.username}, 'vimplus');
+                    var token = jwt.sign( {username: doc.username}, config.jwt.secret);
                     console.log('Login Success!')
                     var data = {
                         username: doc.username,

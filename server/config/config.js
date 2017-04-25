@@ -6,7 +6,10 @@ var config = {
     dbPort: '27017',
     dbName: 'cims',
     mongodb: 'mongodb://127.0.0.1:27017/cims',
-    cookieSecret: 'cimsCookie'
+    cookieSecret: 'cimsCookie',
+    jwt: {
+        secret: 'vimplus'
+    }
 }
 
 // Config for log4js.
