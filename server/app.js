@@ -7,7 +7,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import koaBody from 'koa-body';
-//import session from 'koa-session';
+import session from 'koa-session';
 import views from 'koa-views';
 import path from 'path';
 import log4js from 'log4js';
@@ -42,14 +42,41 @@ db.connection.on("open", function () {
     console.log("------数据库连接成功！------");
 });
 
+
+
+const CONFIG = {
+  key: 'kos:sess', /** (string) cookie key (default is koa:sess) */
+  maxAge: 86400000, /** (number) maxAge in ms (default is 1 days) */
+  overwrite: true, /** (boolean) can overwrite or not (default true) */
+  httpOnly: true, /** (boolean) httpOnly or not (default true) */
+  signed: true, /** (boolean) signed or not (default true) */
+};
+app.use(session(CONFIG, app));
+
+//
+
 appRoutes(app, router);     // app routes config.
+
+app.use(async (ctx, next) => {
+    if (ctx.session.userInfo) {
+        console.log('****userInfo:', ctx.session.userInfo);
+        await next();
+    } else if (!ctx.path.startsWith('/login')) {
+        ctx.body = {
+            error: 'xxx'
+        };
+    } else {
+        await next();
+    }
+})
 
 app.use(async (ctx, next) => {
     if (ctx.path.startsWith('/test')) {
         await next();
     } else {
         await ctx.render('index', {
-            data: 'txBoy'
+            data: 'txBoy',
+            userInfo: ctx.session.userInfo
         });
     }
 })
