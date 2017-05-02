@@ -3,6 +3,7 @@
 ## 安装依赖
 
 如果本机没有安装过yarn，请先执行`npm install -g yarn`;
+建议设置yarn的镜像源为国内的`yarn config set registry https://registry.npm.taobao.org`;
 
 ```
 yarn install
@@ -16,7 +17,7 @@ server {
     server_name     cims.thinktxt.com;
 
     location / {
-        proxy_pass  http://127.0.0.1:9002;
+        proxy_pass  http://127.0.0.1:8000;
     }
 }
 
@@ -25,7 +26,7 @@ server {
     server_name     static.cims.thinktxt.com;
 
     location / {
-        proxy_pass  http://127.0.0.1:9000;
+        proxy_pass  http://127.0.0.1:8088;
     }
 
 }
