@@ -53,6 +53,7 @@ var userService = {
                     console.log('Login Success!')
                     var data = {
                         username: doc.username,
+                        uid: doc.uid,
                         email: doc.email,
                         token: token
                     }

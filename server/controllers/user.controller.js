@@ -26,7 +26,14 @@ var user = {
 		console.log('loginData:', res);
 
 		if (res) {
-			ctx.cookies.set('token', res.data && res.data.token, { maxAge: 846000, signed: true })
+			let uid = res.data;
+			//ctx.session.userInfo = {uid: res.data};
+			ctx.session.userInfo = res.data;
+			//加密
+			//ctx.cookies.set('token', res.data && res.data.token, { maxAge: 846000, signed: true });
+			console.log('-----session:', ctx.session);
+
+			// ctx.cookies.set('token', res.data && res.data.token, { maxAge: 846000, signed: true })
 			ctx.response.body = {
 				code: res.code,
 				data: res.data ? res.data : null,
@@ -43,7 +50,10 @@ var user = {
 		}
 	},
 	logout: async function (ctx, next) {
-
+		ctx.session.userInfo = null;
+		ctx.body = {
+			
+		}
 	},
 	getList: async function (ctx, next) {
 		var res = await userService.getUsers({});

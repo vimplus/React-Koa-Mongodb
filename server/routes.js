@@ -13,6 +13,7 @@ function appRoutes(app, router) {
     router.post('/api/user/register', user.register);
     router.post('/api/user/login', user.login);
     router.get('/api/user/getUsers', user.getList);
+    router.get('/api/user/logout', user.logout);
 
     router.get('/getList', async (ctx, next) => {
         //console.log(ctx.request.query)
