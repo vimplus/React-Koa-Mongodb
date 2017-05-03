@@ -3,10 +3,36 @@
 ## 安装依赖
 
 如果本机没有安装过yarn，请先执行`npm install -g yarn`;
-建议设置yarn的镜像源为国内的`yarn config set registry https://registry.npm.taobao.org`;
 
 ```
 yarn install
+```
+
+**友情提示**
+1. 建议设置包镜像源为国内的：
+
+```
+$ npm set registry https://registry.npm.taobao.org
+$ npm set disturl https://npm.taobao.org/dist
+$ npm set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass
+$ yarn config set registry https://registry.npm.taobao.org;
+```
+
+2. 如果一直卡主无法成功安装完成，多半是因为`node-sass`资源被墙的问题，如：
+
+```
+...
+[-/5] ⠠ waiting...
+[-/5] ⠠ waiting...
+[-/5] ⠠ waiting...
+[-/5] ⠠ waiting...
+[5/5] ⠠ node-sass: g++ '-DNODE_GYP_MODULE_NAME=libsass' '-DUSING_UV_SHARED=1' '-DUSING_V8_SHARED=1' '-DV8_DEPRECATION_WARNINGS=1' '-D_
+```
+
+建议先取消安装，然后`cd node_modules/`，然后`rm -rf node-sass`，接着回到上级目录`cd ../`，执行:
+
+```
+yarn add node-sass sass-loader css-loader style-loader postcss-loader
 ```
 
 ## 配置Nginx
