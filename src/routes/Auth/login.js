@@ -33,12 +33,13 @@ class Login extends Component {
     _onLogin(params) {
         fetcher.post('/api/user/login', {data: params}).then(res => {
             console.log(res)
-            if (res.code === 1000 && res.data) {
+            if (res && res.code === 10000) {
                 var userInfo = res.data;
                 localStorage.setItem('username', userInfo.username);
                 this.setState({
                     userInfo: userInfo
                 })
+                window.location.href = '/';
             }
         })
     }

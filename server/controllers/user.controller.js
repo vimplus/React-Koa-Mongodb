@@ -42,7 +42,7 @@ var user = {
 			}
 		} else {
 			ctx.response.body = {
-				code: 9999,
+				code: 99999,
 				data: null,
 				msg: 'System Error!',
 				status: 'error'
@@ -52,7 +52,7 @@ var user = {
 	logout: async function (ctx, next) {
 		ctx.session.userInfo = null;
 		ctx.body = {
-			
+
 		}
 	},
 	getList: async function (ctx, next) {

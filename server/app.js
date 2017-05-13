@@ -45,7 +45,7 @@ db.connection.on("open", function () {
 
 
 const CONFIG = {
-  key: 'kos:sess', /** (string) cookie key (default is koa:sess) */
+  key: 'skey', /** (string) cookie key (default is koa:sess) */
   maxAge: 86400000, /** (number) maxAge in ms (default is 1 days) */
   overwrite: true, /** (boolean) can overwrite or not (default true) */
   httpOnly: true, /** (boolean) httpOnly or not (default true) */
@@ -58,6 +58,7 @@ app.use(session(CONFIG, app));
 appRoutes(app, router);     // app routes config.
 
 app.use(async (ctx, next) => {
+    // console.log('==========ctx:', ctx);
     if (ctx.session.userInfo) {
         console.log('****userInfo:', ctx.session.userInfo);
         await next();

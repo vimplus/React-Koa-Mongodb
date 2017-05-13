@@ -63,7 +63,7 @@ class ListPage extends Component {
         })*/
         fetcher.get('/api/user/getUsers', {data: {page: 1, size: 10}}).then(res => {
             console.log(res)
-            if (res.code === 1000 && res.data) {
+            if (res && res.code === 10000) {
                 var userList = res.data.list || [];
                 this.setState({
                     userList: userList
