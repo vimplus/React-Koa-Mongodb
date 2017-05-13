@@ -25,7 +25,7 @@ const logger = log4js.getLogger('server');
 const app = new Koa();
 const router = new Router();
 
-const port = process.env.PORT || 9002;
+const port = process.env.PORT || 8000;
 
 app.keys = ['secret', 'key'];
 app.use(views(path.resolve(__dirname, '../dist'), {

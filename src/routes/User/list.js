@@ -74,6 +74,7 @@ class ListPage extends Component {
         var timestamp = new Date().getTime();
         console.log(formatTimestamp(timestamp))
     }
+
     render() {
         return ( <Table rowKey="id" rowSelection={rowSelection} columns={columns} dataSource={this.state.userList} /> );
     }

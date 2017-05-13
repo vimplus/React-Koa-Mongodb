@@ -15,7 +15,7 @@ module.exports = merge(webpackBaseConfig, {
     entry: {
         index: [
             'react-hot-loader/patch',
-            'webpack-dev-server/client?http://127.0.0.1:9000',
+            'webpack-dev-server/client?http://127.0.0.1:8088',
             'webpack/hot/only-dev-server',
             './src/entry/index.dev.js'
         ]
@@ -29,7 +29,7 @@ module.exports = merge(webpackBaseConfig, {
     devServer: {
       contentBase: path.join(__dirname, "dist"),
       compress: true,
-      port: 9000
+      port: 8088
     },
     module: {
         rules: [{

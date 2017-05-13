@@ -5,7 +5,7 @@ const common = {
     success: {
 		code: 10000,
 		msg: '请求成功!',
-        status: 'success!'
+        status: 'success'
 	},
 	error: {
 		code: 99999,
