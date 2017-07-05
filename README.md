@@ -58,7 +58,7 @@ server {
 }
 ```
 
-## 配置Host
+## 绑定Host
 
 ```
 127.0.0.1 cims.thinktxt.com
@@ -67,7 +67,7 @@ server {
 
 ## 本地开发构建
 
-本地开发环境用`gulp server`命令。`gulp server`会启动一个基于内存的WEB服务器，端口为9000，同时监听（watch）本地文件的变化，然后自动编译。
+本地开发环境用`gulp server`命令。`gulp server`会启动一个基于内存的WEB服务器，端口为8088，同时监听（watch）本地文件的变化，然后自动编译。
 
 ```
 gulp server

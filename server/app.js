@@ -3,7 +3,7 @@
  * @author: txBoy
  * @created 2017-03-31
  */
-
+"use strict";
 import Koa from 'koa';
 import Router from 'koa-router';
 import koaBody from 'koa-body';
@@ -18,6 +18,7 @@ import {config, logConfig} from './config/config.js';
 import sender from './utils/sender';
 import appRoutes from './routes';
 import mongo from './config/mongoose';
+import checkOrigin from './middleware/checkOrigin';
 
 log4js.configure( logConfig );
 const logger = log4js.getLogger('server');
@@ -53,34 +54,46 @@ const CONFIG = {
 };
 app.use(session(CONFIG, app));
 
-//
-
 appRoutes(app, router);     // app routes config.
 
 app.use(async (ctx, next) => {
     // console.log('==========ctx:', ctx);
     if (ctx.session.userInfo) {
-        console.log('****userInfo:', ctx.session.userInfo);
+        console.log('-------------userInfo:', ctx.session.userInfo);
         await next();
     } else if (!ctx.path.startsWith('/login')) {
+        console.log('------origin:',ctx.headers.origin)
+        var origin = ctx.headers.origin;
+        if (checkOrigin(origin)) {
+            ctx.set('Access-Control-Allow-Origin', origin);
+			ctx.set('Access-Control-Allow-Credentials', true);
+			ctx.set('Access-Control-Allow-Headers', 'x-requested-with,content-type');
+            ctx.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+            // ctx.set('Access-Control-Max-Age', 1728000);
+        }
         ctx.body = {
             error: 'xxx'
         };
     } else {
         await next();
     }
+    console.log('-----here-----')
 })
 
 app.use(async (ctx, next) => {
     if (ctx.path.startsWith('/test')) {
+        console.log('-----test-----')
         await next();
-    } else {
+    } else if (!ctx.path.startsWith('/api')) {
+        console.log('-----index-----')
         await ctx.render('index', {
             data: 'txBoy',
             userInfo: ctx.session.userInfo
         });
     }
 })
+
+
 
 app.use(async (ctx) => {
     ctx.response.body = 'Test is here.';

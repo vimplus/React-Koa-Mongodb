@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const path = require("path");
+const { resolve } = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -10,28 +10,36 @@ process.noDeprecation = true;
 module.exports = {
     //文件入口配置
     /*entry: {
-        index: './src/entry/index.js'
+        index: [
+            'react-hot-loader/patch',
+            'webpack-dev-server/client?http://127.0.0.1:9000',
+            'webpack/hot/only-dev-server',
+            './src/entry/index.js'
+        ]
     },*/
     //文件输出配置
     output: {
-        path: path.resolve(__dirname, '../dist'), //打包输出目录
+        path: resolve(__dirname, '../dist'), //打包输出目录
     },
     // 声明CDN加载的库，不会通过webpack打包
     externals: {
         "react": 'React',
         "react-dom": "ReactDOM",
         "react-router": "ReactRouter",
-        'history': "History",
-        'redux': 'Redux',
-        'react-redux': 'ReactRedux',
-        'lodash': '_'
+        // 'history': "History",
+        // 'redux': 'Redux',
+        // 'react-redux': 'ReactRedux',
+        // 'lodash': '_'
     },
     //加载器配置
     module: {
         rules: [{
-            test: /\.jsx?$/,
+            test: /\.js?$/,
             exclude: /(node_modules|bower_components)/,
-            loader: ['babel-loader']
+            loader: "babel-loader",
+            options: {
+                cacheDirectory: true
+            }
         }, {
 			test: /\.(png|jpe?g|gif)$/i,
 			loader: 'url-loader',
@@ -53,31 +61,33 @@ module.exports = {
     //插件项
     plugins: [
         /*new webpack.ProvidePlugin({
-			'Promise': 'bluebird'
+			'Promise': 'bluebird',
+            // 'React': 'react'
 		}),*/
+        // new webpack.optimize.ModuleConcatenationPlugin(),   // webpack 3 新增的作用域提升插件
         new CommonsChunkPlugin({
-            name:['manifest', 'index'].reverse(),
-            minChunks: Infinity
+            names:['manifest', 'vendor'].reverse(),
+            minChunks: 2,
         }),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
             filename: 'index.html',
             template: './src/views/index.html', //html模板路径
-            chunks: ['manifest', 'index']  // manifest: 可以理解为模块清单，载货单
+            chunks: ['manifest', 'vendor', 'index']  // manifest: 可以理解为模块清单，载货单
         })
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.scss', '.css'],
         alias: {
-            libs: path.resolve('./src/libs'),
-            utils: path.resolve('./src/utils'),
-            scss: path.resolve('./src/scss'),
-            css: path.resolve('./src/css'),
-            img: path.resolve('./src/images'),
-            api: path.resolve('./src/api'),
-            cpn: path.resolve('./src/components'),
-            routes: path.resolve('./src/routes'),
-            data: path.resolve('./src/data')
+            libs: resolve('./src/libs'),
+            utils: resolve('./src/utils'),
+            scss: resolve('./src/scss'),
+            css: resolve('./src/css'),
+            img: resolve('./src/images'),
+            api: resolve('./src/api'),
+            cpn: resolve('./src/components'),
+            routes: resolve('./src/routes'),
+            data: resolve('./src/data')
         },
         modules: ['node_modules']
     }

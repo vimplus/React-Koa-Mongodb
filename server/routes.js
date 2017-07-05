@@ -3,6 +3,7 @@ import {logConfig} from './config/config.js';
 import sender from './utils/sender';
 
 import user from './controllers/user.controller';
+import webIssues from './controllers/webIssues.controller';
 
 log4js.configure( logConfig );
 const logger = log4js.getLogger('server');
@@ -14,6 +15,8 @@ function appRoutes(app, router) {
     router.post('/api/user/login', user.login);
     router.get('/api/user/getUsers', user.getList);
     router.get('/api/user/logout', user.logout);
+
+    router.post('/api/webIssues/push', webIssues.push);
 
     router.get('/getList', async (ctx, next) => {
         //console.log(ctx.request.query)
