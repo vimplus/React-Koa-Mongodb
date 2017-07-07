@@ -12,7 +12,11 @@ const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 import { removeWithoutCopy } from 'utils/util';
+import fetcher from 'utils/fetcher';
+import storage from 'utils/storage.js';
 import 'scss/global.scss';
+
+const userInfo = JSON.parse(storage.getCookie('userInfo') || '{}');
 
 class LayoutPage extends Component {
     constructor(props) {
@@ -51,6 +55,13 @@ class LayoutPage extends Component {
                 })
             }
         })
+    }
+    onLogout() {
+        fetcher.get('/api/user/logout', function (err, res) {
+            console.log(res)
+        })
+        storage.setCookie('userInfo', '');
+        window.location.href = '/login';
     }
     formatMenuConf () {
         var routes = this.props.menuConfig;
@@ -118,7 +129,13 @@ class LayoutPage extends Component {
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header className='ant-layout-header' style={{ background: '#454545'}}>乐潇游【React-Node-Mongodb】技术栈实例平台</Header>
+                    <Header className="ant-layout-header clearfix">
+                        <div className="user-info">Hello, 欢迎 {userInfo.realName || userInfo.username} ^_^</div>
+                        <div className="header-content">乐潇游【React-Node-Mongodb】技术栈实例平台</div>
+                        <div className="login-box">
+                            <a className="logout-btn" onClick={this.onLogout.bind(this)}>退  出</a>
+                        </div>
+                    </Header>
                     <Content style={{ margin: '0 16px' }}>
                         <Breadcrumb className='ant-layout-breadcrumb'>
                             <Breadcrumb.Item>User</Breadcrumb.Item>
