@@ -54,6 +54,13 @@ class ListPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            query: {
+                page: 1,
+                size: 10,
+                filter: {
+                    searchValue: null
+                }
+            },
             userList: []
         }
     }
@@ -61,7 +68,10 @@ class ListPage extends Component {
         /*fetcher.get('/getList', {data: {page: 1, size: 10}}).then(res => {
             console.log(res)
         })*/
-        fetcher.get('/api/user/getUsers', {data: {page: 1, size: 10}}).then(res => {
+        var params = Object.assign({}, this.state.query);
+        params.filter = JSON.stringify(params.filter);
+
+        fetcher.get('/api/user/getUsers', {data: params}).then(res => {
             console.log(res)
             if (res && res.code === 10000) {
                 var userList = res.data.list || [];

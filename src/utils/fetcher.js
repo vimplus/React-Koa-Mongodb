@@ -31,10 +31,10 @@ fetcher.request = (function () {
 
             let data = options && options.data || {};
             // 公司业务需要的统一参数，如不需要可删除
-            data.source = data.source || 'web';
+            /*data.source = data.source || 'web';
             data.sv = data.sv || '1.0';
             data.version = data.version || '1.0';
-            data.macId = data.macId || 'WEB';
+            data.macId = data.macId || 'WEB';*/
 
             options.body = data;
             delete options.data;

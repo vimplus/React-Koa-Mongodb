@@ -4,19 +4,21 @@
  * @created 2017-04-17
  */
 
+import jwt from 'jsonwebtoken';
 import { md5 } from '../utils/util';
+import { config } from '../config';
+import { common } from '../config/statusCode';
+import { generateToken } from '../middleware/authControl';
 import userService from '../services/user.service';
 
 var user = {
 	register: async function (ctx, next) {
 		var userInfo = ctx.request.body;
-		var res = await userService.register(userInfo);
-		console.log('registerData:', res);
-		ctx.response.body = {
-			code: res.code,
-			data: res.data,
-			msg: res.msg,
-			status: res.status
+		var data = await userService.register(userInfo);
+		if (data) {
+			ctx.body = Object.assign({data: data}, common.success);
+		} else {
+			ctx.body = Object.assign({data: null}, common.error);
 		}
 	},
 	login: async function (ctx, next) {
@@ -25,48 +27,28 @@ var user = {
 		var res = await userService.login(userInfo);
 		console.log('loginData:', res);
 
-		if (res) {
-			let uid = res.data;
-			//ctx.session.userInfo = {uid: res.data};
-			ctx.session.userInfo = res.data;
-			//加密
-			//ctx.cookies.set('token', res.data && res.data.token, { maxAge: 846000, signed: true });
-			console.log('-----session:', ctx.session);
-
-			// ctx.cookies.set('token', res.data && res.data.token, { maxAge: 846000, signed: true })
-			ctx.response.body = {
-				code: res.code,
-				data: res.data ? res.data : null,
-				msg: res.msg,
-				status: res.status
-			}
+		if (res && res.data) {
+			var tokenInfo = {username: res.data.username};
+			var token = generateToken(tokenInfo);
+			ctx.cookies.set('token', token);
+			ctx.body = res;
 		} else {
-			ctx.response.body = {
-				code: 99999,
-				data: null,
-				msg: 'System Error!',
-				status: 'error'
-			}
+			ctx.body = res;
 		}
 	},
 	logout: async function (ctx, next) {
-		ctx.session.userInfo = null;
-		ctx.body = {
-
-		}
+		ctx.cookies.set('token', '');
+		ctx.body = Object.assign({data: true}, common.success);
 	},
 	getList: async function (ctx, next) {
-		var res = await userService.getUsers({});
-		if (res) {
-			ctx.response.body = {
-				code: res.code,
-				data: res.data ? res.data : null,
-				msg: res.msg,
-				status: res.status
-			}
-
+		var params = ctx.query;
+		params.filter = data && params.filter ? JSON.parse(params.filter) : {};
+		var data = await userService.getUsers(params);
+		if (data) {
+			ctx.body = Object.assign({data: data}, common.success);
+		} else {
+			ctx.body = Object.assign({data: null}, common.error);
 		}
-
 	}
 }
 

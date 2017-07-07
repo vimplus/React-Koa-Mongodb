@@ -11,6 +11,7 @@ const FormItem = Form.Item;
 
 import fetcher from 'utils/fetcher';
 import { md5 } from 'utils/util';
+import storage from 'utils/storage.js';
 import './auth.scss';
 
 class Login extends Component {
@@ -26,19 +27,16 @@ class Login extends Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 values.password = md5(values.password);
-                this._onLogin(values)
+                this.onLogin(values)
             }
         });
     }
-    _onLogin(params) {
+    onLogin(params) {
         fetcher.post('/api/user/login', {data: params}).then(res => {
             console.log(res)
             if (res && res.code === 10000) {
                 var userInfo = res.data;
-                localStorage.setItem('username', userInfo.username);
-                this.setState({
-                    userInfo: userInfo
-                })
+                storage.setCookie('userInfo', JSON.stringify(userInfo));
                 window.location.href = '/';
             }
         })

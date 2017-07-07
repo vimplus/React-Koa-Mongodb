@@ -45,7 +45,7 @@ class Register extends Component {
     _onRegiter(params) {
         fetcher.post('/api/user/register', {data: params}).then(res => {
             console.log(res)
-            if (res.code === 1000) {
+            if (res.code === 10000) {
                 var userInfo = res.data;
                 this.setState({
                     showSuccess: true,

@@ -63,23 +63,7 @@ var UserSchema = new Schema({
     updateTime: Number
 });
 
-// const IdsModel = mongoose.model('ids', {uid: Number, user: String});
-
 UserSchema.set('autoIndex', true);
-// On every save, add the update time.
-UserSchema.pre('save', function(next) {
-    var doc = this;
-
-    var currentDate = Date.now();
-    this.updateTime = currentDate;
-    // next();
-
-    Counter.findByIdAndUpdate({_id: 'entityUid'}, {$inc: { seq: 1} }, function(error, counter) {
-        if(error) return next(error);
-        doc.uid = counter && counter.seq;
-        next();
-    });
-});
 
 // 根据Schema创建一个Model
 var UserModel = mongoose.model(COLLECTTION, UserSchema);

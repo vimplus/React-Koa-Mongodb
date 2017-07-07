@@ -11,7 +11,8 @@ import checkOrigin from '../middleware/checkOrigin';
 var webIssues = {
 	push: async function (ctx, next) {
 		var data = ctx.request.body;
-		// console.log('------data--------', data)
+		// var data = ctx.query;
+		console.log('------data--------', data)
 		var doc = await webIssuesService.add(data);
 		var origin = ctx.headers.origin;
 		console.log('------origin:',origin);

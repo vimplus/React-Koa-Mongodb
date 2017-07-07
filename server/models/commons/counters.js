@@ -1,5 +1,5 @@
 /**
- * @overview: Auto increment ID. - Provide Auto increment ID related operations.
+ * @overview: Auto increment id. - Provide Auto increment id for mongodb.
  * @author: txBoy
  * @created 2017-07-05
  */

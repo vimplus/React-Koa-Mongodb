@@ -5,10 +5,8 @@
  */
 
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
 
-import fetcher from 'utils/fetcher';
-import logo from 'img/logo.svg';
+// import logo from 'img/logo.svg';
 import 'scss/global.scss';
 
 class IndexPage extends Component {
@@ -16,21 +14,13 @@ class IndexPage extends Component {
         super(props)
         this.state = {};
     }
-    geToLogin() {
-        location.href = '/login'
-    }
-    onLogout() {
-        fetcher.get('/api/user/logout', function (err, res) {
-            console.log(res)
-        })
+    componentDidMount() {
+
     }
     render() {
         return (
-            <div className="App">
-                <h3>首页内容</h3>
-                <div className="App-logo"><img src={logo}/></div>
-                <div style={{fontSize: 16, cursor: 'pointer',}} onClick={this.geToLogin.bind(this)}>登录</div>
-                <div style={{fontSize: 16, cursor: 'pointer',}} onClick={this.onLogout.bind(this)}>退出</div>
+            <div className="index-content">
+                <p className="welcome-text">欢迎使用！</p>
             </div>
         );
     }

@@ -3,22 +3,25 @@
  * @author		txBoy
  * @created		2017-03-21
  */
-
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, BrowserRouter, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import LazyRoute from 'lazy-route';
 
 import AuthLayout from './Auth';
-/*import ResetPwd from './Auth/resetPwd';*/
 import LayoutPage from './LayoutPage';
 
 import routesConfig from './routes';
+import storage from 'utils/storage';
+
+const userInfo = storage.getCookie('userInfo') ? JSON.parse(storage.getCookie('userInfo')) : '';
+const accessReg = userInfo.accessUrls && userInfo.accessUrls.length ? new RegExp(userInfo.accessUrls.map(url => '^' + url).join('|')) : null;
 
 // 定义路由组件
 const RouteWithSubRoutes = (route) => (
-  <Route path={route.path} exact={route.exact} render={ props => (
-    <LazyRoute {...props} component={import(route.component + '.js')}/>
-  )}/>
+    <Route path={route.path} exact={route.exact} render={ props => {
+        // route.onEnter();  // 校验准入权限
+        return <LazyRoute {...props} component={import(route.component + '.js')}/>;
+    }}/>
 )
 
 // 渲染所有路由
@@ -32,54 +35,90 @@ const renderRoutes = (routes) => {
     })
 }
 
+function checkAccess() {
+    var pathname = window.location.pathname;
+    console.log('-----------pathname:', pathname)
+    if (pathname != '/' && accessReg && !accessReg.test(pathname)) {
+        location.replace('/error/403');
+    }
+}
+
+function formatRoutes(routes) {
+    let list = routes.slice(0);
+    while (list.length) {
+        let route = list.shift();
+        if (!route.onEnter) {
+            route.onEnter = checkAccess;
+        }
+        if (route.childRoutes && route.childRoutes.length) {
+            list.push.apply(list, route.childRoutes);
+        }
+    }
+    return routes;
+}
+
+var routes = formatRoutes(routesConfig);
+
 class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isRenderSider: true,
+            isRenderSider: false,
+            simplePage: false
         };
     }
     componentWillMount() {
-        this.hideSider();
+        if(window.location.href.indexOf('/login') > -1){
+            storage.setCookie('userInfo', '');
+        }
+        // this.hideSider();
     }
     hideSider() {
         var pathname = window.location.pathname;
-        var pathArr = ['login', 'register', 'resetPwd']
+        var pathArr = ['login', 'register', 'resetPwd', 'error']
         for (var i = 0; i < pathArr.length; i++) {
-            if (pathname.indexOf(pathArr[i]) >= 0) {
+            if (pathname.indexOf(pathArr[i]) != -1) {
                 this.setState({
                     isRenderSider: false
                 })
             }
         }
-        console.log(location.pathname)
     }
     renderLayoutPage() {
+        var pathname = window.location.pathname;
+        if(userInfo){
+            this.state.isRenderSider = true;
+        }
+        if (pathname.indexOf('error') != -1) {
+            this.state.simplePage = true;
+        }
         var isRender = this.state.isRenderSider;
-        if (isRender) {
+        var simplePage = this.state.simplePage;
+        if (isRender && !simplePage) {
             return (
-                <LayoutPage routesChildren = {renderRoutes(routesConfig)} menuConfig = {routesConfig}/>
+                <LayoutPage routesChildren = {renderRoutes(routes)} menuConfig = {routes}/>
+            )
+        } else if (simplePage) {
+            return (
+                <AuthLayout/>
             )
         } else {
-            return (
-                <div className="simple-warp">
+            var pathname = window.location.pathname;
+            if(pathname.indexOf('/login') > -1 || pathname.indexOf('/register') > -1 || pathname.indexOf('/resetPwd') > -1){
+                return (
                     <AuthLayout/>
-                </div>
-            )
+                )
+            } else {
+                window.location.href = '/login';
+            }
         }
     }
     render() {
         return (
-            <BrowserRouter>
+            <Router>
                 {this.renderLayoutPage()}
-            </BrowserRouter>
+            </Router>
         );
     }
 }
-
-
-// <Route exact path='/' component={IndexPage}/>
-// <Route path='/list' render={(props) => <LazyRoute {...props} component={import('./loan/list/component')} />}/>
-// <Route path='/detail' render={(props) => <LazyRoute {...props} component={import('./loan/detail/component')} />}/>
-
 export default App;

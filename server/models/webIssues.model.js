@@ -12,11 +12,7 @@ const COLLECTTION = 'cims_web_issues';
 // 定义数据模型。
 var issuesSchema = new Schema({
     logId: Number,
-    title: {
-        type: String,
-        required: true,
-        index: true
-    },
+    title: String,
     category: String,
     browserType: String,
     osType: String,

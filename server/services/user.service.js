@@ -4,79 +4,84 @@
  * @created 2017-04-17
  */
 
-import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 
 import { md5 } from '../utils/util';
-import { config } from '../config/config';
+import { config } from '../config';
 import { common, account } from '../config/statusCode';
 import UserModel from '../models/user.model';
+import getIncrementId from '../models/commons/counters';
+
+// logger
+import loghelper from '../utils/loghelper';
+const logger = loghelper('server');
 
 const COLLECTTION = 'cims_users';
 const User = mongoose.model(COLLECTTION);
-/*const IdsModel = mongoose.model('ids', {uid: Number, user: String});
-const Ids = mongoose.model('ids');*/
 
 var userService = {
     register: async function (info) {
-
         try {
-            /*var ids = new IdsModel();
-            var userDoc = await Ids.findOneAndUpdate({update: {$inc: {'uid': 1}}, query: {'name': 'user'}, new: true });
-            console.log(userDoc.uid)
-            info.uid = userDoc.uid;*/
-            var user = new UserModel(info);
-
-            var doc = await user.save();
-            if (doc) {
-                var data = {
-                    username: doc.username,
-                    email: doc.email
+            var uid = await getIncrementId(COLLECTTION);
+            if (uid) {
+                info.uid = uid;
+                info.updateTime = Date.now();
+                var doc = await User.create(info);
+                if (doc) {
+                    return {
+                        username: doc.username,
+                        email: doc.email
+                    }
                 }
-                var res = common.success;
-                res.data = data;
-                return res;
+            } else {
+                return null;
             }
         } catch (err) {
-            console.log('DB-Error:', err)
-            var res = common.error;
-            return res;
+            logger.error('---------------The register action DB-Error:', err);
+            console.log('---------------The register action DB-Error:', err);
+            return null;
         }
     },
     login: async function (info) {
         try {
             var doc = await User.findOne({username: info.username});
-            console.log('Doc', doc)
             if (doc) {
+                var res = null;
                 if (info.password === doc.password) {
-                    var token = jwt.sign( {username: doc.username}, config.jwt.secret);
-                    console.log('Login Success!')
                     var data = {
-                        username: doc.username,
                         uid: doc.uid,
-                        email: doc.email,
-                        token: token
+                        username: doc.username,
+                        email: doc.email
                     }
-                    var res = common.success;
-                    res.data = data;
-                    return res;
+                    res = Object.assign({data: data}, common.success);
                 } else {
-                    var res = account.pwdError;
-                    return res;
+                    res = Object.assign({data: null}, account.pwdError);
                 }
+                return res;
             } else {
-                var res = account.notUser;
+                var res = Object.assign({data: null}, account.notUser);
                 return res;
             }
         } catch (err) {
-            console.log('DB-Error:', err)
-            var res = common.error;
+            logger.error('---------------The login action DB-Error:', err);
+            console.log('---------------The login action DB-Error:', err);
+            var res = Object.assign({data: null}, common.error);
             return res;
         }
     },
-    getUsers: async function (info) {
+    getUsers: async function (params) {
+        // 页码查询参数
+		var page = Number(params && params.page) || 1;
+		var size = Number(params && params.size) || 10;
+		var total = 0;
+        // 筛选条件组装
+		var { searchValue } = params.filter;
+		var filter = {};
+        if (searchValue) { filter.$or = [{username: new RegExp(searchValue, 'i')}, {realName: new RegExp(searchValue, 'i')}] }		// 根据[用户名]或[姓名]模糊查询
+
         try {
-            var userList = await User.find({});
+            total = await User.count(filter);
+            var userList = await User.find(filter, null, {skip: (page - 1) * size, limit: size});
             if (userList) {
                 var list = [];
                 for (var i = 0; i < userList.length; i++) {
@@ -90,19 +95,16 @@ var userService = {
                     obj.createTime = user.createTime;
                     list.push(obj);
                 }
-                var data = {
+                return {
                     list: list,
-                    page: 1,
-                    size: 10,
-                    total: list.length
-                };
-                var res = common.success;
-                res.data = data;
-                return res;
+                    page: page,
+                    size: size,
+                    total: total
+                }
             }
         } catch (err) {
-            var res = common.error;
-            return res;
+            logger.error('---------------The getUsers action DB-Error:', err);
+            return null;
         }
     }
 }
