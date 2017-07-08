@@ -35,13 +35,15 @@ var webIssuesService = {
             } else {
                 info.createdTime = Date.now();
                 var logId = await getIncrementId(COLLECTTION);
-                if (logId) info.logId = logId;
-
-                doc = await WebIssues.create(info);
-                console.log('-------doc:', doc)
-                return doc;
+                if (logId) {
+                    info.logId = logId;
+                    doc = await WebIssues.create(info);
+                    console.log('-------doc:', doc)
+                    return doc;
+                }
             }
         } catch (err) {
+            logger.error('---------------The webIssues add action DB-Error:', err);
             console.log('DB-Error:', err)
             return null;
         }
