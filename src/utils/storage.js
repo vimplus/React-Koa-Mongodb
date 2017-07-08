@@ -29,7 +29,7 @@ var Storage = {
     getLocal: function(key) {
         try {
             var val = window.localStorage.getItem('$' + key);
-            return val?JSON.parse(val):'';
+            return val ? JSON.parse(val):'';
         }
         catch (ex) {
             console.error(ex);
@@ -53,7 +53,7 @@ var Storage = {
     getCookie: function(name) {
         var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
         if(arr=document.cookie.match(reg))
-            return unescape(arr[2]);
+            return decodeURIComponent(arr[2]);
         else {
             return null;
         }
