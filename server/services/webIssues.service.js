@@ -5,10 +5,13 @@
  */
 
 import mongoose from 'mongoose';
-
 import { config } from '../config';
 import WebIssuesModel from '../models/webIssues.model';
 import getIncrementId from '../models/commons/counters';
+
+// logger
+import loghelper from '../utils/loghelper';
+const logger = loghelper('mongodb');
 
 const COLLECTTION = 'cims_web_issues';
 const WebIssues = mongoose.model(COLLECTTION);

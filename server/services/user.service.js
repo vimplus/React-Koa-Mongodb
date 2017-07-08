@@ -14,7 +14,7 @@ import getIncrementId from '../models/commons/counters';
 
 // logger
 import loghelper from '../utils/loghelper';
-const logger = loghelper('server');
+const logger = loghelper('mongodb');
 
 const COLLECTTION = 'cims_users';
 const User = mongoose.model(COLLECTTION);

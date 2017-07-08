@@ -1,13 +1,13 @@
-import log4js from 'log4js';
-import sender from '../utils/sender';
-import { logConfig } from '../config';
-import authVerify from '../middleware/authControl';
+/**
+ * @overview	koa-router config.
+ * @author		txBoy
+ * @created		2017-03-21
+ */
 
+import sender from '../utils/sender';
+import authVerify from '../middleware/authControl';
 import user from '../controllers/user.controller';
 import webIssues from '../controllers/webIssues.controller';
-
-log4js.configure( logConfig );
-const logger = log4js.getLogger('server');
 
 function appRoutes(app, router) {
     app.use(router.routes()).use(router.allowedMethods());

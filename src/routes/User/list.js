@@ -10,8 +10,6 @@ import { Table } from 'antd';
 import fetcher from 'utils/fetcher';
 import { md5, formatTimestamp, formatGender } from 'utils/util';
 
-
-
 class ListPage extends Component {
     constructor(props) {
         super(props)
