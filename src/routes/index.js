@@ -68,7 +68,8 @@ class App extends Component {
         };
     }
     componentWillMount() {
-        if(window.location.href.indexOf('/login') > -1){
+        var pathname = window.location.pathname;
+        if(pathname.indexOf('/login') > -1){
             storage.setCookie('userInfo', '');
         }
         // this.hideSider();

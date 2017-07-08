@@ -60,7 +60,7 @@ class LayoutPage extends Component {
         fetcher.get('/api/user/logout', function (err, res) {
             console.log(res)
         })
-        storage.setCookie('userInfo', '');
+        storage.setCookie('userInfo', '', 0);
         window.location.href = '/login';
     }
     formatMenuConf () {

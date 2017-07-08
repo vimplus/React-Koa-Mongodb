@@ -36,7 +36,7 @@ class AuthLayout extends Component {
                   </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
-                  Ant Design ©2016 Created by Ant UED
+                  Copyright © 2017 Thinktxt Inc. All Rights Reserved.
                 </Footer>
               </Layout>
         );
