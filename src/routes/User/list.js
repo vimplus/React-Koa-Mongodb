@@ -89,7 +89,7 @@ class ListPage extends Component {
                   <span className="ant-divider" />
                   <a href="#">Delete</a>
                 </span>
-            ),
+            )
         }];
 
         // rowSelection object indicates the need for row selection
